@@ -30,3 +30,11 @@ sed -e 's#^;\(access.log\).*#\1 = /dev/stderr#' \
 
 # install developer stuff
 ./install-development.sh
+
+# gosu
+GOSU_VERSION='1.10'
+dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"
+curl -L -o /usr/local/bin/gosu \
+    "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch"
+chmod +x /usr/local/bin/gosu
+

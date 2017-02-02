@@ -29,7 +29,7 @@ fi
 
 if [ "php-fpm7.1" != "$1" ] && [ "/bin/bash" != "$1" ]; then
     usermod -s /bin/bash www-data
-    exec su www-data -c "$@"
+    exec gosu www-data "$@"
 else
     exec "$@"
 fi
