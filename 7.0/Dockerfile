@@ -3,8 +3,7 @@ FROM debian:stable-slim
 ENV DEBIAN_FRONTEND=noninteractive
 
 COPY ./scripts /
-RUN /install.sh
-RUN rm install*
+RUN /install.sh && rm /install*
 
 EXPOSE 9000
 VOLUME ["/var/www/app", "/var/www/xhprof"]
