@@ -11,7 +11,7 @@ echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sou
 # install packages
 apt-get update
 apt-get upgrade -y
-apt-get install -y php5.6-cli php5.6-fpm php5.6-curl php5.6-json
+apt-get install -y php5.6-cli php5.6-fpm php5.6-curl php5.6-json php5.6-zip
 apt-get clean -y
 mkdir -p /var/www/app
 

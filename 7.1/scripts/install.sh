@@ -11,7 +11,7 @@ echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sou
 # install packages
 apt-get update
 apt-get upgrade -y
-apt-get install -y php7.1-cli php7.1-fpm php7.1-curl php7.1-json
+apt-get install -y php7.1-cli php7.1-fpm php7.1-curl php7.1-json php7.1-zip
 apt-get clean -y
 mkdir -p /var/www/app
 
