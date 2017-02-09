@@ -63,3 +63,10 @@ $ docker run -e DEVELOPMENT=noprofile blackikeeagle/php-debian
 
 Only enable composer and xdebug.
 
+Versions
+--------
+
+The following versions are available:
+- 5.6 : only security updates so you should use a higher version
+- 7.0
+- 7.1
