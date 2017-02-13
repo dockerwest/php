@@ -13,7 +13,7 @@ apt-get update
 apt-get upgrade -y
 apt-get install -y php7.0-cli php7.0-fpm php7.0-curl php7.0-json php7.0-zip
 apt-get clean -y
-mkdir -p /var/www/app
+mkdir -p /phpapp
 
 # enable custom php configuration
 phpenmod custom

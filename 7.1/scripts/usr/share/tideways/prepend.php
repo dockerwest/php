@@ -52,7 +52,7 @@ if (extension_loaded('tideways')) {
             ];
 
             file_put_contents(
-                "/var/www/xhprof/"
+                "/xhprof/"
                     . number_format(microtime(true), 4, '', '.')
                     . ".xhprof",
                 json_encode($data)

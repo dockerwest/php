@@ -13,7 +13,7 @@ apt-get update
 apt-get upgrade -y
 apt-get install -y php5.6-cli php5.6-fpm php5.6-curl php5.6-json php5.6-zip
 apt-get clean -y
-mkdir -p /var/www/app
+mkdir -p /phpapp
 
 # enable custom php configuration
 phpenmod custom

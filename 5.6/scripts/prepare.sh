@@ -11,12 +11,12 @@ fi
 
 mkdir /run/php
 chown www-data:www-data /run/php
-chown www-data:www-data /var/www/app
+chown www-data:www-data /phpapp
 
 if [[ ! -z $DEVELOPMENT ]]; then
     if [[ "noprofile" != "$DEVELOPMENT" ]]; then
-        mkdir -p /var/www/xhprof
-        chown www-data:www-data /var/www/xhprof
+        mkdir -p /xhprof
+        chown www-data:www-data /xhprof
         phpenmod tideways > /dev/null 2>&1
     fi
 

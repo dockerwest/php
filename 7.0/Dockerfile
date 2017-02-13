@@ -6,8 +6,8 @@ COPY ./scripts /
 RUN /install.sh && rm /install*
 
 EXPOSE 9000
-VOLUME ["/var/www/app", "/var/www/xhprof"]
-WORKDIR /var/www/app
+VOLUME ["/phpapp", "/xhprof"]
+WORKDIR /phpapp
 
 ENTRYPOINT ["/command.sh"]
 CMD ["php-fpm7.0"]
