@@ -15,19 +15,19 @@ Usage
 -----
 
 ~~~ sh
-$ docker run blackikeeagle/php-debian
+$ docker run dockerwest/php
 ~~~
 
 Will run the chosen version php-fpm
 
 ~~~ sh
-$ docker run blackikeeagle/php-debian <some command>
+$ docker run dockerwest/php <some command>
 ~~~
 
 Will run the command with the www-data user.
 
 ~~~ sh
-$ docker run blackikeeagle/php-debian /bin/bash
+$ docker run dockerwest/php /bin/bash
 ~~~
 
 Will give you a container where you are logged in as root
@@ -45,20 +45,20 @@ can pass along `DEVELOPMENT=noprofile`.
 examples:
 
 ~~~ sh
-$ docker run -e C_UID=1000 -e G_UID=1000 blackikeeagle/php-debian
+$ docker run -e C_UID=1000 -e G_UID=1000 dockerwest/php
 ~~~
 
 To run php-fpm as user www-data with UID 1000 and GID 1000, can be usefull for
 development on Linux machines.
 
 ~~~ sh
-$ docker run -e DEVELOPMENT=1 blackikeeagle/php-debian
+$ docker run -e DEVELOPMENT=1 dockerwest/php
 ~~~
 
 Enable all development features.
 
 ~~~ sh
-$ docker run -e DEVELOPMENT=noprofile blackikeeagle/php-debian
+$ docker run -e DEVELOPMENT=noprofile dockerwest/php
 ~~~
 
 Only enable composer and xdebug.
