@@ -63,6 +63,12 @@ $ docker run -e DEVELOPMENT=noprofile dockerwest/php
 
 Only enable composer and xdebug.
 
+Mailcatcher
+-----------
+
+When you use this in development mode with mailcatcher or mailhog, you must
+give it the hostname `mailcatcher` to have it all working fine.
+
 Versions
 --------
 
