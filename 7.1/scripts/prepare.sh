@@ -8,9 +8,16 @@ if [ ! -z $C_UID ]; then
     usermod -u $C_UID www-data
 fi
 
-
-mkdir /run/php
+if [ ! -d /run/php ]; then
+    mkdir /run/php
+fi
 chown www-data:www-data /run/php
+
+if [ ! -d /var/www ]; then
+    mkdir /var/www
+fi
+chown www-data:www-data /var/www
+
 chown www-data:www-data /phpapp
 
 if [[ ! -z $DEVELOPMENT ]]; then
