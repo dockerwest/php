@@ -6,7 +6,7 @@ COPY ./scripts /
 RUN /install.sh && rm /install*
 
 EXPOSE 9000
-VOLUME ["/phpapp", "/xhprof"]
+VOLUME ["/xhprof"]
 WORKDIR /phpapp
 
 ENTRYPOINT ["/command.sh"]
