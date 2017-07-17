@@ -7,10 +7,12 @@ apt-get install -y php-xdebug php-tideways git
 apt-get clean -y
 curl -LsS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/local/lib --filename=composer
+[ -e /usr/local/lib/composer ] || false && true
 
 (
     cd /usr/lib/php/$(php -i | grep ^extension_dir | sed -e 's/.*\/\([0-9]*\).*/\1/')
     curl -O https://raw.githubusercontent.com/tideways/profiler/master/Tideways.php
+    [ -e Tideways.php ] || false && true
 )
 
 curl -LsSO "https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64"
