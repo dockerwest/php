@@ -32,6 +32,15 @@ $ docker run dockerwest/php /bin/bash
 
 Will give you a container where you are logged in as root
 
+Building with dockerwest as base
+--------------------------------
+
+When you use the dockerwest php images as base and you have to add additional
+commands or checks before a command can be executed you can add an additional
+shell script named `/prepare-command.sh`. The commands you put in that script
+will be run after our normal prepare but before the command you pass along so
+by default before `php-fpm`.
+
 Healthcheck
 -----------
 
