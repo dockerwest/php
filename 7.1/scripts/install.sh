@@ -11,7 +11,8 @@ echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sou
 # install packages
 apt-get update
 apt-get upgrade -y
-apt-get install -y php7.1-cli php7.1-fpm php7.1-curl php7.1-json php7.1-zip
+apt-get install -y php7.1-cli php7.1-fpm php7.1-curl php7.1-json php7.1-zip \
+    libfcgi0ldbl
 apt-get clean -y
 mkdir -p /phpapp
 
@@ -26,6 +27,7 @@ sed -e 's#^;\(access.log\).*#\1 = /dev/stderr#' \
     -e 's#^\(listen\).*#\1 = 0.0.0.0:9000#' \
     -e 's#^;\(catch_workers_output\).*#\1 = yes#' \
     -e 's#^;\(clear_env\).*#\1 = no#' \
+    -e 's#^;\(ping\)#\1#g' \
     -i /etc/php/7.1/fpm/pool.d/www.conf
 
 # install developer stuff

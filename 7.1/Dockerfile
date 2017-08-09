@@ -11,3 +11,5 @@ WORKDIR /phpapp
 
 ENTRYPOINT ["/command.sh"]
 CMD ["php-fpm7.1"]
+
+HEALTHCHECK --interval=10s --timeout=3s CMD /health.sh
