@@ -32,6 +32,27 @@ $ docker run dockerwest/php /bin/bash
 
 Will give you a container where you are logged in as root
 
+Healthcheck
+-----------
+
+When you run `php-fpm` in the containers the healthcheck will monitor php-fpm
+and when there is an issue the state will change from healthy to unhealthy.
+When you use the images to just run some other commands we will automatically
+assume the health is ok so after the first interval of 10 seconds the container
+will be marked healthy.
+
+To check the health you can run the following command:
+
+~~~ sh
+$ docker inspect --format='{{json .State.Health}}' <containername>
+~~~
+
+If you only want to get the textual state you can go further and use
+
+~~~ sh
+$ docker inspect --format='{{lower .State.Health.Status}}' <containername>
+~~~
+
 Environment variables
 ---------------------
 
