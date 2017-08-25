@@ -11,8 +11,7 @@ echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sou
 # install packages
 apt-get update
 apt-get upgrade -y
-apt-get install -y php7.2-cli php7.2-fpm php7.2-curl php7.2-json php7.2-zip \
-    libfcgi0ldbl
+apt-get install -y php7.2-cli php7.2-fpm php7.2-curl php7.2-json php7.2-zip
 apt-get clean -y
 mkdir -p /phpapp
 
@@ -39,4 +38,9 @@ dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"
 curl -L -o /usr/local/bin/gosu \
     "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch"
 chmod +x /usr/local/bin/gosu
+
+PHP_HEALTH_VERSION='0.0.1'
+curl -L -o /usr/local/bin/php-health.phar \
+    "https://github.com/dockerwest/php-health/releases/download/$PHP_HEALTH_VERSION/php-health.phar"
+chmod +x /usr/local/bin/php-health.phar
 

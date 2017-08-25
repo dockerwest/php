@@ -11,8 +11,7 @@ echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sou
 # install packages
 apt-get update
 apt-get upgrade -y
-apt-get install -y php5.6-cli php5.6-fpm php5.6-curl php5.6-json php5.6-zip \
-    libfcgi0ldbl
+apt-get install -y php5.6-cli php5.6-fpm php5.6-curl php5.6-json php5.6-zip
 apt-get clean -y
 mkdir -p /phpapp
 
@@ -39,4 +38,9 @@ dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"
 curl -L -o /usr/local/bin/gosu \
     "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch"
 chmod +x /usr/local/bin/gosu
+
+PHP_HEALTH_VERSION='0.0.1'
+curl -L -o /usr/local/bin/php-health.phar \
+    "https://github.com/dockerwest/php-health/releases/download/$PHP_HEALTH_VERSION/php-health.phar"
+chmod +x /usr/local/bin/php-health.phar
 
