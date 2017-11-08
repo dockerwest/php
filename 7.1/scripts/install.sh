@@ -18,6 +18,9 @@ mkdir -p /phpapp
 # enable custom php configuration
 phpenmod custom
 
+# enable custom opcache config
+phpenmod opcache_settings
+
 # configure php for docker
 sed -e 's#^\(error_log\).*#\1 = /dev/stderr#' \
     -e 's#^;\(daemonize\).*#\1 = no#' \
