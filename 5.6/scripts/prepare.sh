@@ -21,6 +21,9 @@ chown www-data:www-data /var/www
 chown www-data:www-data /phpapp
 
 if [[ ! -z $DEVELOPMENT ]]; then
+    phpdismod opcache
+    phpdismod opcache_settings
+
     if [[ "noprofile" != "$DEVELOPMENT" ]]; then
         mkdir -p /xhprof
         chown www-data:www-data /xhprof
