@@ -21,7 +21,8 @@ chown www-data:www-data /var/www
 chown www-data:www-data /phpapp
 
 if [[ ! -z $DEVELOPMENT ]]; then
-    phpdismod opcache_settings
+    sed -e 's/^\(opcache\.validate_timestamps=\).*/\11/g' \
+        -i /etc/php/5.6/mods-available/opcache_settings.ini
 
     if [[ "noprofile" != "$DEVELOPMENT" ]]; then
         mkdir -p /xhprof
