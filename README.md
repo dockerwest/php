@@ -65,21 +65,23 @@ $ docker inspect --format='{{lower .State.Health.Status}}' <containername>
 Environment variables
 ---------------------
 
-We have the `C_UID` and `G_UID` environment variables if you want to change the
+### C_UID / C_GID
+
+We have the `C_UID` and `C_GID` environment variables if you want to change the
 UID and/or GID of www-data.
-
-And additionally there is the `DEVELOPMENT` environment variable wich will
-enable xdebug, composer and tideways. If you want to run without profiling you
-can pass along `DEVELOPMENT=noprofile`.
-
-examples:
 
 ~~~ sh
 $ docker run -e C_UID=1000 -e G_UID=1000 dockerwest/php
 ~~~
 
 To run php-fpm as user www-data with UID 1000 and GID 1000, can be usefull for
-development on Linux machines.
+development on Unix like machines.
+
+### DEVELOPMENT
+
+There is the `DEVELOPMENT` environment variable wich will enable xdebug,
+composer and tideways (xhprof). If you want to run without profiling you can
+pass along `DEVELOPMENT=noprofile`.
 
 ~~~ sh
 $ docker run -e DEVELOPMENT=1 dockerwest/php
@@ -92,6 +94,144 @@ $ docker run -e DEVELOPMENT=noprofile dockerwest/php
 ~~~
 
 Only enable composer and xdebug.
+
+### PHP_EXTRA_MODULES
+
+You can install extra php modules when starting a new container by using the
+`PHP_EXTRA_MODULES` environment variable, this requires the `DEVELOPMENT`
+environment variable.  For production ready images make use of the
+`/usr/local/bin/extensions` helper to install addtional PHP modules.
+
+~~~ sh
+$ docker run -e DEVELOPMENT=noprofile -e "PHP_EXTRA_MODULES=mongodb zmq" dockerwest/php
+~~~
+
+extensions
+----------
+
+The base image contains a extensions helper that helps you installing available
+php extensions. It can be found at `/usr/local/bin/extensions` and has 3
+'functions'.
+
+### list extensions
+
+This will list all available precompiled extensions that can be installed. Some
+special extensions like `xdebug` and `tideways` are excluded from the list
+since those can be controlled via environment variables.
+
+~~~ sh
+$ extensions -l
+amqp
+apcu
+apcu-bc
+ast
+bcmath
+bz2
+cgi
+cli
+common
+curl
+dba
+ds
+enchant
+fpm
+gd
+gearman
+geoip
+gmagick
+gmp
+http
+igbinary
+imagick
+imap
+interbase
+intl
+json
+ldap
+mailparse
+mbstring
+mcrypt
+memcache
+memcached
+mongo
+mongodb
+msgpack
+mysql
+oauth
+odbc
+opcache
+pear
+pecl-http
+pgsql
+phpdbg
+propro
+pspell
+radius
+raphf
+readline
+recode
+redis
+rrd
+sass
+smbclient
+snmp
+soap
+sodium
+solr
+sqlite3
+ssh2
+stomp
+sybase
+tidy
+uploadprogress
+uuid
+xcache
+xml
+xmlrpc
+xsl
+yac
+yaml
+zip
+zmq
+~~~
+
+### install extensions
+
+We can install additional PHP extensions with the tool, just give a space
+separated list of extensions you need and those will be added to your
+installation.
+
+~~~ sh
+$ extensions -i mongodb
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following NEW packages will be installed:
+  php-mongodb
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 498 kB of archives.
+After this operation, 3704 kB of additional disk space will be used.
+Get:1 https://packages.sury.org/php stretch/main amd64 php-mongodb amd64 1.3.3-1+0~20180314122024.4+stretch~1.gbpc062c6 [498 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 498 kB in 0s (967 kB/s)
+                               Selecting previously unselected package php-mongodb.
+(Reading database ... 11653 files and directories currently installed.)
+Preparing to unpack .../php-mongodb_1.3.3-1+0~20180314122024.4+stretch~1.gbpc062c6_amd64.deb ...
+Unpacking php-mongodb (1.3.3-1+0~20180314122024.4+stretch~1.gbpc062c6) ...
+Setting up php-mongodb (1.3.3-1+0~20180314122024.4+stretch~1.gbpc062c6) ...
+~~~
+
+### dump available extensions in a php cache file
+
+There is a possibility to dump a php file with the available extensions listed.
+This is more needed if you have a slow disk or something and having issues with
+the regular reading of the debian package files. When the 'cache' file is found
+it will be used instead of the debian package cache to list the available PHP
+extensions.
+
+~~~ sh
+$ extensions -d
+~~~
 
 Mailcatcher
 -----------

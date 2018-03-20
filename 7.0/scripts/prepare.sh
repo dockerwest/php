@@ -21,6 +21,10 @@ chown www-data:www-data /var/www
 chown www-data:www-data /phpapp
 
 if [[ ! -z $DEVELOPMENT ]]; then
+    if [[ ! -z $PHP_EXTRA_MODULES ]]; then
+        /usr/local/bin/extensions -i $PHP_EXTRA_MODULES
+    fi
+
     sed -e 's/^\(opcache\.validate_timestamps=\).*/\11/g' \
         -i /etc/php/7.0/mods-available/opcache_settings.ini
 
