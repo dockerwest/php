@@ -80,20 +80,12 @@ development on Unix like machines.
 ### DEVELOPMENT
 
 There is the `DEVELOPMENT` environment variable wich will enable xdebug,
-composer and tideways (xhprof). If you want to run without profiling you can
-pass along `DEVELOPMENT=noprofile`.
+composer and enable timestamp checking in opcache. Additionally it will enable
+the use of the `PHP_EXTRA_MODULES` environment variable.
 
 ~~~ sh
 $ docker run -e DEVELOPMENT=1 dockerwest/php
 ~~~
-
-Enable all development features.
-
-~~~ sh
-$ docker run -e DEVELOPMENT=noprofile dockerwest/php
-~~~
-
-Only enable composer and xdebug.
 
 ### PHP_EXTRA_MODULES
 
@@ -103,8 +95,15 @@ environment variable.  For production ready images make use of the
 `/usr/local/bin/extensions` helper to install addtional PHP modules.
 
 ~~~ sh
-$ docker run -e DEVELOPMENT=noprofile -e "PHP_EXTRA_MODULES=mongodb zmq" dockerwest/php
+$ docker run -e DEVELOPMENT=1 -e "PHP_EXTRA_MODULES=mongodb zmq" dockerwest/php
 ~~~
+
+### PROFILER
+
+When a supported 'profiler' is set in the `PROFILER` environment variable, that
+specific profiler will be enabled. Currently there is only support for
+`xhprof`. See the Profilers section if extra configuration is needed to use the
+selected profiler.
 
 extensions
 ----------
@@ -233,6 +232,18 @@ extensions.
 $ extensions -d
 ~~~
 
+Profilers
+---------
+
+### xhprof
+
+When xhprof is enabled, all requests, cli runs will write their run profile in
+the `/xhprof` folder. The choice was made to to it like this so your current
+application is not polluted with eventually additional modules you might not
+need. The easiest way to view and analyze your profiles is with xhgui which has
+a dependency on mongodb. You can find a `docker-compose` extension sample in
+[xhgui][].
+
 Mailcatcher
 -----------
 
@@ -244,11 +255,14 @@ Versions
 
 The following versions are available:
 - 5.6 : supported until 31 Dec 2018
-- 7.0 : supported until 31 Dec 2018
+- 7.0 : supported until 3 Dec 2018
 - 7.1 : supported until 1 Dec 2019
-- 7.2 : alpha release
+- 7.2 : supported until 30 Nov 2020
 
 License
 -------
 
-MIT License (MIT). See [License File](LICENSE.md) for more information.
+MIT License (MIT). See [license][] for more information.
+
+[license]: LICENSE.md "License"
+[xhgui]: https://github.com/dockerwest/compose-xhgui "compose-xhgui"

@@ -20,7 +20,7 @@ chown www-data:www-data /var/www
 
 chown www-data:www-data /phpapp
 
-if [[ ! -z $DEVELOPMENT ]]; then
+if [[ "1" == "$DEVELOPMENT" ]]; then
     if [[ ! -z $PHP_EXTRA_MODULES ]]; then
         /usr/local/bin/extensions -i $PHP_EXTRA_MODULES
     fi
@@ -28,15 +28,14 @@ if [[ ! -z $DEVELOPMENT ]]; then
     sed -e 's/^\(opcache\.validate_timestamps=\).*/\11/g' \
         -i /etc/php/7.2/mods-available/opcache_settings.ini
 
-    if [[ "noprofile" != "$DEVELOPMENT" ]]; then
-        mkdir -p /xhprof
-        chown www-data:www-data /xhprof
-        phpenmod tideways > /dev/null 2>&1
-    fi
-
     phpenmod development > /dev/null 2>&1
     phpenmod xdebug > /dev/null 2>&1
 
     ln -s /usr/local/lib/composer /usr/local/bin/composer
 fi
 
+if [[ "xhprof" == "$PROFILER" ]]; then
+    mkdir -p /xhprof
+    chown www-data:www-data /xhprof
+    phpenmod xhprof > /dev/null 2>&1
+fi
