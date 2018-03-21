@@ -34,7 +34,12 @@ if [[ "1" == "$DEVELOPMENT" ]]; then
     ln -s /usr/local/lib/composer /usr/local/bin/composer
 fi
 
-if [[ "xhprof" == "$PROFILER" ]]; then
+if [[ "xdebug" == "$PROFILER" ]]; then
+    mkdir -p /xdebug
+    chown www-data:www-data /xdebug
+    phpenmod xdebug > /dev/null 2>&1
+    phpenmod xdebug_profiler > /dev/null 2>&1
+elif [[ "xhprof" == "$PROFILER" ]]; then
     mkdir -p /xhprof
     chown www-data:www-data /xhprof
     phpenmod xhprof > /dev/null 2>&1

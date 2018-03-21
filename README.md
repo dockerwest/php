@@ -101,9 +101,12 @@ $ docker run -e DEVELOPMENT=1 -e "PHP_EXTRA_MODULES=mongodb zmq" dockerwest/php
 ### PROFILER
 
 When a supported 'profiler' is set in the `PROFILER` environment variable, that
-specific profiler will be enabled. Currently there is only support for
-`xhprof`. See the Profilers section if extra configuration is needed to use the
-selected profiler.
+specific profiler will be enabled.  See the Profilers section if extra
+configuration is needed to use the selected profiler.
+
+Currently the following profilers are supported:
+- xdebug
+- xhprof
 
 extensions
 ----------
@@ -234,6 +237,12 @@ $ extensions -d
 
 Profilers
 ---------
+
+### xdebug
+
+When we choose to profile with xdebug, all requests and cli runs will write
+their run profile in the `/xdebug` folder. You can analyse the grind files with
+`kcachegrind` or `qcachegrind` and try to find your possible bottlenecks.
 
 ### xhprof
 
