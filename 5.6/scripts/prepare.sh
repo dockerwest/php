@@ -43,4 +43,6 @@ elif [[ "xhprof" == "$PROFILER" ]]; then
     mkdir -p /xhprof
     chown www-data:www-data /xhprof
     phpenmod xhprof > /dev/null 2>&1
+elif [[ "tideways" == "$PROFILER" ]]; then
+    phpenmod tideways > /dev/null 2>&1
 fi

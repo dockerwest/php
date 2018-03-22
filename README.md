@@ -111,6 +111,7 @@ configuration is needed to use the selected profiler.
 Currently the following profilers are supported:
 - xdebug
 - xhprof
+- tideways
 
 extensions
 ----------
@@ -257,6 +258,22 @@ need. The easiest way to view and analyze your profiles is with xhgui which has
 a dependency on mongodb. You can find a `docker-compose` extension sample in
 [xhgui][].
 
+### Tideways
+
+When we use tideways it will give us more information about different parts of
+our application. We can use the profiling by installing [tideways-chrome][]. By
+using Tideways you get a few extra environment variables:
+
+- `TIDEWAYS_APIKEY`: required, set your api key from the dashbord
+- `TIDEWAYS_SAMPLERATE`: optional, set the samplerate
+- `TIDEWAYS_FRAMEWORK`: set to the framework you are using
+- `TIDEWAYS_COLLECT`: check the tideways documentation how to use this
+- `TIDEWAYS_MONITOR`: check the tideways documentation how to use this
+
+You can find extended documentation about tideways here: [tideways-documentation][]
+
+> Note: You will need to setup the tideways daemon to get your information sent to tideways.io
+
 Mailcatcher
 -----------
 
@@ -279,3 +296,5 @@ MIT License (MIT). See [license][] for more information.
 
 [license]: LICENSE.md "License"
 [xhgui]: https://github.com/dockerwest/compose-xhgui "compose-xhgui"
+[tideways-chrome]: https://tideways.io/profiler/article/58-chrome-extension "Tideways browser extension"
+[tideways-documentation]: https://tideways.io/profiler/docs "Tideways docs"
