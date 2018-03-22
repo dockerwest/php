@@ -14,20 +14,24 @@ development.
 Usage
 -----
 
+You can simply run a php container based on dockerwest. Note that you will have
+to set which specific base version you want to use. The dockerwest images do
+not have a 'latest' tag. See Versions to find out what versions are supported.
+
 ~~~ sh
-$ docker run dockerwest/php
+$ docker run dockerwest/php:<version>
 ~~~
 
 Will run the chosen version php-fpm
 
 ~~~ sh
-$ docker run dockerwest/php <some command>
+$ docker run dockerwest/php:<version> <some command>
 ~~~
 
 Will run the command with the www-data user.
 
 ~~~ sh
-$ docker run dockerwest/php /bin/bash
+$ docker run dockerwest/php:<version> /bin/bash
 ~~~
 
 Will give you a container where you are logged in as root
@@ -71,7 +75,7 @@ We have the `C_UID` and `C_GID` environment variables if you want to change the
 UID and/or GID of www-data.
 
 ~~~ sh
-$ docker run -e C_UID=1000 -e G_UID=1000 dockerwest/php
+$ docker run -e C_UID=1000 -e G_UID=1000 dockerwest/php:<version>
 ~~~
 
 To run php-fpm as user www-data with UID 1000 and GID 1000, can be usefull for
@@ -84,7 +88,7 @@ composer and enable timestamp checking in opcache. Additionally it will enable
 the use of the `PHP_EXTRA_MODULES` environment variable.
 
 ~~~ sh
-$ docker run -e DEVELOPMENT=1 dockerwest/php
+$ docker run -e DEVELOPMENT=1 dockerwest/php:<version>
 ~~~
 
 ### PHP_EXTRA_MODULES
@@ -95,7 +99,7 @@ environment variable.  For production ready images make use of the
 `/usr/local/bin/extensions` helper to install addtional PHP modules.
 
 ~~~ sh
-$ docker run -e DEVELOPMENT=1 -e "PHP_EXTRA_MODULES=mongodb zmq" dockerwest/php
+$ docker run -e DEVELOPMENT=1 -e "PHP_EXTRA_MODULES=mongodb zmq" dockerwest/php:<version>
 ~~~
 
 ### PROFILER
