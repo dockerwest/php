@@ -2,8 +2,11 @@
 
 set -e
 
+curl -LsS https://packagecloud.io/gpg.key | apt-key add -
+echo "deb http://packages.blackfire.io/debian any main" > /etc/apt/sources.list.d/blackfire.list
+
 apt-get update
-apt-get install -y php-xdebug php-tideways git
+apt-get install -y php-xdebug php-tideways git blackfire-php
 apt-get clean -y
 curl -LsS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/local/lib --filename=composer
@@ -33,6 +36,9 @@ printf "tideways.udp_connection=\"tideways:8135\"\ntideways.connection=\"tcp://t
 printf "auto_prepend_file=/usr/share/tideways/prepend.php\n" \
     >> /etc/php/7.2/mods-available/tideways.ini
 
+sed -e 's#\(blackfire.agent_socket\).*#\1=tcp://blackfire:8707#' \
+    -i /etc/php/7.2/mods-available/blackfire.ini
+
 phpdismod xdebug
 phpdismod tideways
-
+phpdismod blackfire

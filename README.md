@@ -112,6 +112,7 @@ Currently the following profilers are supported:
 - xdebug
 - xhprof
 - tideways
+- blackfire
 
 extensions
 ----------
@@ -274,6 +275,21 @@ You can find extended documentation about tideways here: [tideways-documentation
 
 > Note: You will need to setup the tideways daemon to get your information sent to tideways.io
 
+### Blackfire
+
+When we use blackfire we need the blackfire/blackfire daemon. There we need to
+configure our `BLACKFIRE_SERVER_ID` and `BLACKFIRE_SERVER_TOKEN`. The
+application container must be able to reach the blackfire daemon under the name
+'blackfire'. To start profiling your application you can install the
+[blackfire-chrome][].  For completeness you can add `BLACKFIRE_CLIENT_ID` and
+`BLACKFIRE_CLIENT_TOKEN` environment variables to your blackfire daemon
+configuration.
+
+If you are logged into [blackfire][] you can find those environment variables
+at the [docker documentation](https://blackfire.io/docs/integrations/docker).
+
+For more documentation about blackfire see: [blackfire-documentation][]
+
 Mailcatcher
 -----------
 
@@ -298,3 +314,6 @@ MIT License (MIT). See [license][] for more information.
 [xhgui]: https://github.com/dockerwest/compose-xhgui "compose-xhgui"
 [tideways-chrome]: https://tideways.io/profiler/article/58-chrome-extension "Tideways browser extension"
 [tideways-documentation]: https://tideways.io/profiler/docs "Tideways docs"
+[blackfire]: https://blackfire.io "Blackfire"
+[blackfire-chrome]: https://chrome.google.com/webstore/detail/blackfire-companion/miefikpgahefdbcgoiicnmpbeeomffld "Blackfire browser extension"
+[blackfire-documentation]: https://blackfire.io/docs "Blackfire docs"

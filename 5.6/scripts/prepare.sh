@@ -45,4 +45,6 @@ elif [[ "xhprof" == "$PROFILER" ]]; then
     phpenmod xhprof > /dev/null 2>&1
 elif [[ "tideways" == "$PROFILER" ]]; then
     phpenmod tideways > /dev/null 2>&1
+elif [[ "blackfire" == "$PROFILER" ]]; then
+    phpenmod blackfire > /dev/null 2>&1
 fi
