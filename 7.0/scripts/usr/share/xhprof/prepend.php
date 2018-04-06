@@ -1,8 +1,6 @@
 <?php
 
-if (extension_loaded('tideways')
-    && '/usr/local/bin/php-health.phar' !== $_SERVER['SCRIPT_NAME']
-) {
+if (extension_loaded('tideways')) {
     tideways_enable(
         TIDEWAYS_FLAGS_CPU
         | TIDEWAYS_FLAGS_MEMORY
