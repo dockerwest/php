@@ -91,6 +91,17 @@ the use of the `PHP_EXTRA_MODULES` environment variable.
 $ docker run -e DEVELOPMENT=1 dockerwest/php:<version>
 ~~~
 
+When `DEVELOPMENT` is enabled xdebug should work out of the box. When you have
+issues - like while running docker for mac - you can set the extra environment
+variable `XDEBUG_CONFIG` with your hosts ip in it so xdebug can properly
+connect back.
+
+example:
+
+~~~ sh
+$ docker run -e DEVELOPMENT=1 -e "XDEBUG_CONFIG=remote_host=192.168.65.1" dockerwest/php:<version>
+~~~
+
 ### PHP_EXTRA_MODULES
 
 You can install extra php modules when starting a new container by using the
