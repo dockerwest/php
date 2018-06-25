@@ -22,7 +22,7 @@ if [[ "1" == "$DEVELOPMENT" ]]; then
     fi
 
     sed -e 's/^\(opcache\.validate_timestamps=\).*/\11/g' \
-        -i /etc/php/7.1/mods-available/opcache_settings.ini
+        -i /etc/php/${DW_PHP_VERSION}/mods-available/opcache_settings.ini
 
     phpenmod development > /dev/null 2>&1
     phpenmod xdebug > /dev/null 2>&1

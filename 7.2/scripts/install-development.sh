@@ -23,21 +23,21 @@ mv mhsendmail_linux_amd64 /usr/local/lib/mhsendmail
 chmod +x /usr/local/lib/mhsendmail
 
 printf "xdebug.remote_enable = 1\nxdebug.remote_connect_back = 1\nxdebug.max_nesting_level=400\n" \
-    >> /etc/php/7.2/mods-available/xdebug.ini
+    >> /etc/php/${DW_PHP_VERSION}/mods-available/xdebug.ini
 
-cp -a /etc/php/7.2/mods-available/tideways.ini \
-    /etc/php/7.2/mods-available/xhprof.ini
+cp -a /etc/php/${DW_PHP_VERSION}/mods-available/tideways.ini \
+    /etc/php/${DW_PHP_VERSION}/mods-available/xhprof.ini
 
 printf "auto_prepend_file=/usr/share/xhprof/prepend.php\n" \
-    >> /etc/php/7.2/mods-available/xhprof.ini
+    >> /etc/php/${DW_PHP_VERSION}/mods-available/xhprof.ini
 
 printf "tideways.udp_connection=\"tideways:8135\"\ntideways.connection=\"tcp://tideways:9135\"\ntideways.monitor_cli=1\n" \
-    >> /etc/php/7.2/mods-available/tideways.ini
+    >> /etc/php/${DW_PHP_VERSION}/mods-available/tideways.ini
 printf "auto_prepend_file=/usr/share/tideways/prepend.php\n" \
-    >> /etc/php/7.2/mods-available/tideways.ini
+    >> /etc/php/${DW_PHP_VERSION}/mods-available/tideways.ini
 
 sed -e 's#\(blackfire.agent_socket\).*#\1=tcp://blackfire:8707#' \
-    -i /etc/php/7.2/mods-available/blackfire.ini
+    -i /etc/php/${DW_PHP_VERSION}/mods-available/blackfire.ini
 
 phpdismod xdebug
 phpdismod tideways
