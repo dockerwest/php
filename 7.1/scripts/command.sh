@@ -1,14 +1,14 @@
 #!/bin/bash
 
-if [ "php-fpm7.1" == "$1" ]; then
-    touch /.checkfpm
+if [[ "php-fpm7.1" == "$1" ]]; then
+    touch /run/php/.checkfpm
 fi
 
 /prepare.sh
 
-[ -f /prepare-command.sh ] && bash /prepare-command.sh
+[[ -f /prepare-command.sh ]] && bash /prepare-command.sh
 
-if [ "php-fpm7.1" != "$1" ] && [ "/bin/bash" != "$1" ]; then
+if [[ 0 = "$UID" ]] && [[ "php-fpm7.1" != "$1" ]] && [[ "/bin/bash" != "$1" ]]; then
     exec gosu www-data "$@"
 else
     exec "$@"

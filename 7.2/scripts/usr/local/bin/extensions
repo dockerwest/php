@@ -103,6 +103,11 @@ class Packages
     }
 }
 
+if (0 !== posix_geteuid()) {
+    echo "You should be able to run this as root\n";
+    exit(1);
+}
+
 $options = getopt('lid');
 
 $type = 'list';

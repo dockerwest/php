@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ -e /.checkfpm ]]; then
+if [[ -e /run/php/.checkfpm ]]; then
     php -n /usr/local/bin/php-health.phar
     exit $?
 else
