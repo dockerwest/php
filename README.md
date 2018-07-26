@@ -307,6 +307,30 @@ Mailcatcher
 When you use this in development mode with mailcatcher or mailhog, you must
 give it the hostname `mailcatcher` to have it all working fine.
 
+Rootless operation
+------------------
+
+When using `--user` or create a child image where you set `USER` in the
+Dockerfile, you should use `www-data`, everything inside the image is prepared
+for use with `www-data` using uid 33 and gid 33. There is a slight drawback,
+when running as user you can no longer run the privileged parts, so no
+installation of new extensions. But extensions can be enabled and disabled,
+profilers can be enabled or disabled and used.
+
+Demo example Dockerfile for rootless production:
+
+``` Dockerfile
+FROM dockerwest/php:7.2
+RUN /usr/local/bin/extensions -i amqp  && /usr/local/bin/permissions
+USER www-data
+```
+
+The permissions helper will make sure that the PHP parts are prepared for
+rootless operation.
+
+> If you want to allow rootless operation of you modified dockerwest image you
+> must run the permissions helper
+
 Versions
 --------
 

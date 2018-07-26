@@ -1,6 +1,7 @@
 FROM debian:stretch-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV DW_PHP_VERSION=7.0
 
 COPY ./scripts /
 RUN /install.sh && rm /install*
