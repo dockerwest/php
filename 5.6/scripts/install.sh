@@ -5,7 +5,7 @@ set -e
 # ondrej debian
 apt-get update
 apt-get install -y apt-transport-https lsb-release ca-certificates curl \
-    liblz4-tool gnupg
+    liblz4-tool gnupg unzip
 curl -o /etc/apt/trusted.gpg.d/php.gpg \
     https://packages.sury.org/php/apt.gpg
 echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" \
