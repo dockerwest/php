@@ -95,6 +95,19 @@ class Packages
         return $return;
     }
 
+    public function enable($packages)
+    {
+        if (empty($packages)) {
+            return 1;
+        }
+
+        foreach ($packages as $package) {
+            if (isset($this->list[$package])) {
+                passthru('phpenmod ' . $package, $return);
+            }
+        }
+    }
+
     public function dump()
     {
         $out = '<?php' . PHP_EOL
@@ -128,6 +141,7 @@ case 'install':
     array_shift($args);
     array_shift($args);
     $packages->install($args);
+    $packages->enable($args);
     break;
 case 'list':
 default:
