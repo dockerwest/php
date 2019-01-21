@@ -84,6 +84,7 @@ class Packages
         if (empty($packages)) {
             return 1;
         }
+        passthru('apt-get update -y');
 
         $packagesString = '';
         foreach ($packages as $package) {
