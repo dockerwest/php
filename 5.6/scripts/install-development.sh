@@ -2,7 +2,7 @@
 
 set -e
 
-curl -LsS https://packagecloud.io/gpg.key | apt-key add -
+curl -LsS https://packages.blackfire.io/gpg.key | apt-key add -
 echo "deb http://packages.blackfire.io/debian any main" > /etc/apt/sources.list.d/blackfire.list
 
 apt-get update
