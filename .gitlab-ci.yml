@@ -1,0 +1,105 @@
+---
+
+stages:
+  - prepare
+  - build
+  - release
+
+prepare:
+  stage: prepare
+  tags:
+    - dockerwest
+  script:
+    - docker pull debian:stretch-slim
+  only:
+    - master
+
+build:5.6:
+  stage: build
+  tags:
+    - dockerwest
+  script:
+    - cd 5.6; ./build.sh
+  only:
+    - master
+
+build:7.0:
+  stage: build
+  tags:
+    - dockerwest
+  script:
+    - cd 7.0; ./build.sh
+  only:
+    - master
+
+build:7.1:
+  stage: build
+  tags:
+    - dockerwest
+  script:
+    - cd 7.1; ./build.sh
+  only:
+    - master
+
+build:7.2:
+  stage: build
+  tags:
+    - dockerwest
+  script:
+    - cd 7.2; ./build.sh
+  only:
+    - master
+
+build:7.3:
+  stage: build
+  tags:
+    - dockerwest
+  script:
+    - cd 7.3; ./build.sh
+  only:
+    - master
+
+release:5.6:
+  stage: release
+  tags:
+    - dockerwest
+  script:
+    - docker push dockerwest/php:5.6
+  only:
+    - master
+
+release:7.0:
+  stage: release
+  tags:
+    - dockerwest
+  script:
+    - docker push dockerwest/php:7.0
+  only:
+    - master
+
+release:7.1:
+  stage: release
+  tags:
+    - dockerwest
+  script:
+    - docker push dockerwest/php:7.1
+  only:
+    - master
+
+release:7.2:
+  stage: release
+  tags:
+    - dockerwest
+  script:
+    - docker push dockerwest/php:7.2
+  only:
+    - master
+
+release:7.3:
+  stage: release
+  tags:
+    - dockerwest
+  script:
+    - docker push dockerwest/php:7.3
+  only:
+    - master
