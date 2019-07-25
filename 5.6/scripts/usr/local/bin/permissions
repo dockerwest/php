@@ -15,6 +15,7 @@ if [[ ! -d /run/php ]]; then
     mkdir /run/php
 fi
 chown -R www-data:www-data /run/php
+chmod -R 0777 /run/php
 
 if [[ ! -d /xdebug ]]; then
     mkdir -p /xdebug

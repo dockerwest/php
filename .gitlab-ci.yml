@@ -4,6 +4,7 @@ stages:
   - prepare
   - build
   - release
+  - trigger
 
 prepare:
   stage: prepare
@@ -103,3 +104,28 @@ release:7.3:
     - docker push dockerwest/php:7.3
   only:
     - master
+
+trigger:php-laravel:
+  stage: trigger
+  trigger:
+    project: DockerWest/php-laravel
+
+trigger:php-magento1:
+  stage: trigger
+  trigger:
+    project: DockerWest/php-magento1
+
+trigger:php-magento2:
+  stage: trigger
+  trigger:
+    project: DockerWest/php-magento2
+
+trigger:php-pimcore:
+  stage: trigger
+  trigger:
+    project: DockerWest/php-pimcore
+
+trigger:php-symfony:
+  stage: trigger
+  trigger:
+    project: DockerWest/php-symfony
