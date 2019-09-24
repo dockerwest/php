@@ -19,7 +19,9 @@ apt-get install -y php${DW_PHP_VERSION}-cli \
     php${DW_PHP_VERSION}-curl \
     php${DW_PHP_VERSION}-json \
     php${DW_PHP_VERSION}-zip
+update-alternatives --set php /usr/bin/php${DW_PHP_VERSION}
 apt-get clean -y
+
 mkdir -p /phpapp
 
 # enable custom php configuration
