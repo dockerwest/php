@@ -66,6 +66,13 @@ If you only want to get the textual state you can go further and use
 $ docker inspect --format='{{lower .State.Health.Status}}' <containername>
 ~~~
 
+PHP >= 7.4 preload
+------------------
+
+If you want to enable [preloading][] in your application place `preload.php` in
+the root of your application. Keep in mind, the more you preload the longer it
+will take for the php server to start.
+
 Environment variables
 ---------------------
 
@@ -339,6 +346,8 @@ The following versions are available:
 - 7.0 : supported until 3 Dec 2018
 - 7.1 : supported until 1 Dec 2019
 - 7.2 : supported until 30 Nov 2020
+- 7.3 : supported until 6 Dec 2021
+- 7.4 : supported until 28 Nov 2022
 
 License
 -------
@@ -352,3 +361,4 @@ MIT License (MIT). See [license][] for more information.
 [blackfire]: https://blackfire.io "Blackfire"
 [blackfire-chrome]: https://chrome.google.com/webstore/detail/blackfire-companion/miefikpgahefdbcgoiicnmpbeeomffld "Blackfire browser extension"
 [blackfire-documentation]: https://blackfire.io/docs "Blackfire docs"
+[preloading]: https://wiki.php.net/rfc/preload
