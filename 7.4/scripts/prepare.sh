@@ -30,6 +30,10 @@ if [[ "1" == "$DEVELOPMENT" ]]; then
     ln -s /usr/local/lib/composer /usr/local/bin/composer
 fi
 
+if [[ "1" != "$DEVELOPMENT" ]] && [[ -e /phpapp/preload.php ]]; then
+    phpenmod opcache_preload
+fi
+
 if [[ "xdebug" == "$PROFILER" ]]; then
     [[ 0 = "$UID" ]] && chown www-data:www-data /xdebug
     phpenmod xdebug > /dev/null 2>&1

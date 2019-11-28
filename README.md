@@ -73,6 +73,8 @@ If you want to enable [preloading][] in your application place `preload.php` in
 the root of your application. Keep in mind, the more you preload the longer it
 will take for the php server to start.
 
+*NOTE* When `DEVELOPMENT = 1` preloading will not be enabled.
+
 Environment variables
 ---------------------
 
