@@ -18,10 +18,6 @@ curl -LsS https://getcomposer.org/installer | \
     [[ -e Tideways.php ]] || false && true
 )
 
-curl -LsSO "https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64"
-mv mhsendmail_linux_amd64 /usr/local/lib/mhsendmail
-chmod +x /usr/local/lib/mhsendmail
-
 printf "xdebug.remote_enable = 1\nxdebug.remote_connect_back = 1\nxdebug.max_nesting_level=400\n" \
     >> /etc/php/${DW_PHP_VERSION}/mods-available/xdebug.ini
 

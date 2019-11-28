@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM debian:stable-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV DW_PHP_VERSION=5.6

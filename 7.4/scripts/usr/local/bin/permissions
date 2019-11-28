@@ -1,0 +1,34 @@
+#!/bin/bash
+
+if [[ 0 != "$UID" ]]; then
+    echo "permissions must be run as root"
+    exit 1
+fi
+
+# directories and ownerships to allow run as user
+if [[ ! -d /var/www ]]; then
+    mkdir /var/www
+fi
+chown -R www-data:www-data /var/www
+
+if [[ ! -d /run/php ]]; then
+    mkdir /run/php
+fi
+chown -R www-data:www-data /run/php
+chmod -R 0777 /run/php
+
+if [[ ! -d /xdebug ]]; then
+    mkdir -p /xdebug
+fi
+chown -R www-data:www-data /xdebug
+
+if [[ ! -d /xhprof ]]; then
+    mkdir -p /xhprof
+fi
+chown -R www-data:www-data /xhprof
+
+chown -R www-data:www-data /usr/local/bin
+chown -R www-data:www-data /etc/php
+chown -R www-data:www-data /var/lib/php
+chown -R www-data:www-data /phpapp
+
