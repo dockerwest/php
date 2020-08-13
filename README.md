@@ -84,7 +84,7 @@ We have the `C_UID` and `C_GID` environment variables if you want to change the
 UID and/or GID of www-data.
 
 ~~~ sh
-$ docker run -e C_UID=1000 -e G_UID=1000 dockerwest/php:<version>
+$ docker run -e C_UID=1000 -e C_GID=1000 dockerwest/php:<version>
 ~~~
 
 To run php-fpm as user www-data with UID 1000 and GID 1000, can be usefull for
