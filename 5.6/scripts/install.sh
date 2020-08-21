@@ -53,7 +53,7 @@ curl -L -o /usr/local/bin/gosu \
 chmod +x /usr/local/bin/gosu
 
 # phphealth
-PHP_HEALTH_VERSION='0.0.1'
+PHP_HEALTH_VERSION='0.0.2'
 curl -L -o /usr/local/bin/php-health.phar \
     "https://github.com/dockerwest/php-health/releases/download/$PHP_HEALTH_VERSION/php-health.phar"
 chmod +x /usr/local/bin/php-health.phar
