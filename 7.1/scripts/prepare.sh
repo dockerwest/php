@@ -28,6 +28,7 @@ if [[ "1" == "$DEVELOPMENT" ]]; then
     phpenmod xdebug > /dev/null 2>&1
 
     ln -s /usr/local/lib/composer /usr/local/bin/composer
+    ln -s /usr/local/lib/composer1 /usr/local/bin/composer1
 fi
 
 if [[ "xdebug" == "$PROFILER" ]]; then

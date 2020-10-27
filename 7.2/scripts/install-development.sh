@@ -11,6 +11,10 @@ apt-get clean -y
 curl -LsS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/local/lib --filename=composer
 [[ -e /usr/local/lib/composer ]] || false && true
+# compat composer version for older versions
+curl -LsS https://getcomposer.org/installer | \
+    php -- --1 --install-dir=/usr/local/lib --filename=composer1
+[[ -e /usr/local/lib/composer1 ]] || false && true
 
 (
     cd /usr/lib/php/$(php -i | grep ^extension_dir | sed -e 's/.*\/\([0-9]*\).*/\1/')
