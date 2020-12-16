@@ -108,7 +108,7 @@ connect back.
 example:
 
 ~~~ sh
-$ docker run -e DEVELOPMENT=1 -e "XDEBUG_CONFIG=remote_host=192.168.65.1" dockerwest/php:<version>
+$ docker run -e DEVELOPMENT=1 -e "XDEBUG_CONFIG=client_host=192.168.65.1" dockerwest/php:<version>
 ~~~
 
 ### PHP_EXTRA_MODULES
