@@ -1,0 +1,154 @@
+#!/usr/bin/env php
+<?php
+
+class Packages
+{
+    private $list = [];
+    private $dumpfile = '/usr/local/share/filelist.php';
+
+    public function __construct()
+    {
+        $this->list = $this->packagesFromDump();
+        if (empty($this->list)) {
+            $this->list = $this->packagesFromPackageCache();
+        }
+    }
+
+    private function packagesFromDump()
+    {
+        $list = [];
+        if (file_exists($this->dumpfile)) {
+            $list = include($this->dumpfile);
+        }
+        return $list;
+    }
+
+    private function packagesFromPackageCache()
+    {
+        $rawlist = [];
+        $packagescommand =
+            'lz4cat /var/lib/apt/lists/packages.sury.org_php*-amd64_Packages.lz4'
+            . '|grep ^Package'
+            . '|grep -ve \'\\(-dbgsym\\|-dev\\)\'' // we will not do php development
+            . '|grep -ve \'\\(xdebug\\|tideways\\)\'' // exclude specially installed
+            . '|awk \'{ print $2 }\''
+            . '|grep -e \'^\(php-\|php' . PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . '-\)\'';
+        exec($packagescommand, $rawlist);
+
+        $versionlist = array_filter(
+            $rawlist,
+            function($pkgname)
+            {
+                return (bool) preg_match(
+                    '/^php' . PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . '/i',
+                    $pkgname
+                );
+            }
+        );
+        $generallist = array_filter(
+            $rawlist,
+            function($pkgname)
+            {
+                return !(bool) preg_match(
+                    '/^php' . PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . '/i',
+                    $pkgname
+                );
+            }
+        );
+
+        $list = [];
+        foreach ($versionlist as $pkgname) {
+            $shortpkgname = preg_replace('/^php.*-/', '', $pkgname);
+            $list[$shortpkgname]['pkgname'] = $pkgname;
+        }
+
+        foreach ($generallist as $pkgname) {
+            $shortpkgname = preg_replace('/^php-/', '', $pkgname);
+            if (! isset($list[$shortpkgname])) {
+                $list[$shortpkgname]['pkgname'] = $pkgname;
+            }
+        }
+
+        ksort($list);
+
+        return $list;
+    }
+
+    public function getList()
+    {
+        return $this->list;
+    }
+
+    public function install($packages)
+    {
+        if (empty($packages)) {
+            return 1;
+        }
+        passthru('apt-get update -y');
+
+        $packagesString = '';
+        foreach ($packages as $package) {
+            if (isset($this->list[$package])) {
+                $packagesString .= ' ' . $this->list[$package]['pkgname'];
+            }
+        }
+        passthru('apt-get install -y ' . $packagesString, $return);
+        return $return;
+    }
+
+    public function enable($packages)
+    {
+        if (empty($packages)) {
+            return 1;
+        }
+
+        foreach ($packages as $package) {
+            if (isset($this->list[$package])) {
+                passthru('phpenmod ' . $package, $return);
+            }
+        }
+    }
+
+    public function dump()
+    {
+        $out = '<?php' . PHP_EOL
+            . 'return ' . var_export($this->list, true) . ';';
+        file_put_contents($this->dumpfile, $out);
+    }
+}
+
+if (0 !== posix_geteuid()) {
+    echo "You should be able to run this as root\n";
+    exit(1);
+}
+
+$options = getopt('lid');
+
+$type = 'list';
+if (isset($options['i'])) {
+    $type = 'install';
+} elseif (isset($options['d'])) {
+    $type = 'dump';
+}
+
+$packages = new Packages();
+
+switch ($type) {
+case 'dump':
+    $packages->dump();
+    break;
+case 'install':
+    $args = $_SERVER['argv'];
+    array_shift($args);
+    array_shift($args);
+    $packages->install($args);
+    $packages->enable($args);
+    break;
+case 'list':
+default:
+    $list = $packages->getList();
+    array_walk($list, function($value, $key) {
+        echo $key . PHP_EOL;
+    });
+}
+
