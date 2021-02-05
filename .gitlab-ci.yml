@@ -69,6 +69,15 @@ build:7.4:
   only:
     - master
 
+build:8.0:
+  stage: build
+  tags:
+    - dockerwest
+  script:
+    - cd 8.0; ./build.sh
+  only:
+    - master
+
 release:5.6:
   stage: release
   tags:
@@ -120,6 +129,15 @@ release:7.4:
     - dockerwest
   script:
     - docker push dockerwest/php:7.4
+  only:
+    - master
+
+release:8.0:
+  stage: release
+  tags:
+    - dockerwest
+  script:
+    - docker push dockerwest/php:8.0
   only:
     - master
 
