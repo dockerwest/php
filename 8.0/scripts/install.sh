@@ -17,8 +17,7 @@ apt-get upgrade -y
 apt-get install -y php${DW_PHP_VERSION}-cli \
     php${DW_PHP_VERSION}-fpm \
     php${DW_PHP_VERSION}-curl \
-    php${DW_PHP_VERSION}-zip \
-    php-apcu
+    php${DW_PHP_VERSION}-zip
 update-alternatives --set php /usr/bin/php${DW_PHP_VERSION}
 apt-get clean -y
 
