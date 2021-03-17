@@ -6,7 +6,9 @@ curl -LsS https://packages.blackfire.io/gpg.key | apt-key add -
 echo "deb http://packages.blackfire.io/debian any main" > /etc/apt/sources.list.d/blackfire.list
 
 apt-get update
-apt-get install -y php${DW_PHP_VERSION}-xdebug php${DW_PHP_VERSION}-tideways git blackfire-php
+#apt-get install -y php${DW_PHP_VERSION}-xdebug php${DW_PHP_VERSION}-tideways git blackfire-php
+# no tideways yet for php 8
+apt-get install -y php${DW_PHP_VERSION}-xdebug git blackfire-php
 apt-get clean -y
 curl -LsS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/local/lib --filename=composer
