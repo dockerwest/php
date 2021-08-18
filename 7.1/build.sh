@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
-#docker pull debian:stable-slim
+#docker pull debian:buster-slim
 
 docker build --no-cache -t dockerwest/php:7.1 .
