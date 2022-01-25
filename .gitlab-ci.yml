@@ -1,172 +1,119 @@
 ---
 
 stages:
-  - prepare
   - build
-  - release
   - trigger
 
-prepare:
-  stage: prepare
-  tags:
-    - dockerwest
-  script:
-    - docker pull debian:stretch-slim
-  only:
-    - master
+image: docker.io/library/docker:dind
 
-build:5.6:
-  stage: build
-  tags:
-    - dockerwest
-  script:
-    - cd 5.6; ./build.sh
-  only:
-    - master
+variables:
+  DOCKER_TLS_CERTDIR: "/certs"
 
-build:7.0:
-  stage: build
-  tags:
-    - dockerwest
-  script:
-    - cd 7.0; ./build.sh
-  only:
-    - master
+services:
+  - docker:dind
 
-build:7.1:
-  stage: build
-  tags:
-    - dockerwest
-  script:
-    - cd 7.1; ./build.sh
-  only:
-    - master
+before_script:
+  - echo "$DOCKER_TOKEN" |
+    docker login docker.io -u $DOCKER_USER --password-stdin
+  - echo "$GITLAB_TOKEN" |
+    docker login registry.gitlab.com -u $GITLAB_USER --password-stdin
 
 build:7.2:
   stage: build
-  tags:
-    - dockerwest
   script:
-    - cd 7.2; ./build.sh
+    - cd 7.2
+    - docker build -t
+      registry.gitlab.com/dockerwest/image/php:7.2 .
+    - docker tag registry.gitlab.com/dockerwest/image/php:7.2
+      docker.io/dockerwest/php:7.2
+    - docker push registry.gitlab.com/dockerwest/image/php:7.2
+    - docker push docker.io/dockerwest/php:7.2
   only:
-    - master
+    - main
 
 build:7.3:
   stage: build
-  tags:
-    - dockerwest
   script:
-    - cd 7.3; ./build.sh
+    - cd 7.3
+    - docker build -t
+      registry.gitlab.com/dockerwest/image/php:7.3 .
+    - docker tag registry.gitlab.com/dockerwest/image/php:7.3
+      docker.io/dockerwest/php:7.3
+    - docker push registry.gitlab.com/dockerwest/image/php:7.3
+    - docker push docker.io/dockerwest/php:7.3
   only:
-    - master
+    - main
 
 build:7.4:
   stage: build
-  tags:
-    - dockerwest
   script:
-    - cd 7.4; ./build.sh
+    - cd 7.4
+    - docker build -t
+      registry.gitlab.com/dockerwest/image/php:7.4 .
+    - docker tag registry.gitlab.com/dockerwest/image/php:7.4
+      docker.io/dockerwest/php:7.4
+    - docker push registry.gitlab.com/dockerwest/image/php:7.4
+    - docker push docker.io/dockerwest/php:7.4
   only:
-    - master
+    - main
 
 build:8.0:
   stage: build
-  tags:
-    - dockerwest
   script:
-    - cd 8.0; ./build.sh
+    - cd 8.0
+    - docker build -t
+      registry.gitlab.com/dockerwest/image/php:8.0 .
+    - docker tag registry.gitlab.com/dockerwest/image/php:8.0
+      docker.io/dockerwest/php:8.0
+    - docker push registry.gitlab.com/dockerwest/image/php:8.0
+    - docker push docker.io/dockerwest/php:8.0
   only:
-    - master
+    - main
 
-release:5.6:
-  stage: release
-  tags:
-    - dockerwest
+build:8.1:
+  stage: build
   script:
-    - docker push dockerwest/php:5.6
+    - cd 8.1
+    - docker build -t
+      registry.gitlab.com/dockerwest/image/php:8.1 .
+    - docker tag registry.gitlab.com/dockerwest/image/php:8.1
+      docker.io/dockerwest/php:8.1
+    - docker push registry.gitlab.com/dockerwest/image/php:8.1
+    - docker push docker.io/dockerwest/php:8.1
   only:
-    - master
+    - main
 
-release:7.0:
-  stage: release
-  tags:
-    - dockerwest
-  script:
-    - docker push dockerwest/php:7.0
-  only:
-    - master
+#trigger:php-laravel:
+  #stage: trigger
+  #trigger:
+    #project: DockerWest/image/php-laravel
 
-release:7.1:
-  stage: release
-  tags:
-    - dockerwest
-  script:
-    - docker push dockerwest/php:7.1
-  only:
-    - master
+#trigger:php-magento1:
+  #stage: trigger
+  #trigger:
+    #project: DockerWest/image/php-magento1
 
-release:7.2:
-  stage: release
-  tags:
-    - dockerwest
-  script:
-    - docker push dockerwest/php:7.2
-  only:
-    - master
+#trigger:php-magento2:
+  #stage: trigger
+  #trigger:
+    #project: DockerWest/image/php-magento2
 
-release:7.3:
-  stage: release
-  tags:
-    - dockerwest
-  script:
-    - docker push dockerwest/php:7.3
-  only:
-    - master
+#trigger:php-pimcore:
+  #stage: trigger
+  #trigger:
+    #project: DockerWest/image/php-pimcore
 
-release:7.4:
-  stage: release
-  tags:
-    - dockerwest
-  script:
-    - docker push dockerwest/php:7.4
-  only:
-    - master
+#trigger:php-symfony:
+  #stage: trigger
+  #trigger:
+    #project: DockerWest/image/php-symfony
 
-release:8.0:
-  stage: release
-  tags:
-    - dockerwest
-  script:
-    - docker push dockerwest/php:8.0
-  only:
-    - master
+#trigger:php-sylius:
+  #stage: trigger
+  #trigger:
+    #project: DockerWest/image/php-sylius
 
-trigger:php-laravel:
-  stage: trigger
-  trigger:
-    project: DockerWest/php-laravel
-
-trigger:php-magento1:
-  stage: trigger
-  trigger:
-    project: DockerWest/php-magento1
-
-trigger:php-magento2:
-  stage: trigger
-  trigger:
-    project: DockerWest/php-magento2
-
-trigger:php-pimcore:
-  stage: trigger
-  trigger:
-    project: DockerWest/php-pimcore
-
-trigger:php-symfony:
-  stage: trigger
-  trigger:
-    project: DockerWest/php-symfony
-
-trigger:php-sylius:
-  stage: trigger
-  trigger:
-    project: DockerWest/php-sylius
+#trigger:php-wordpress:
+  #stage: trigger
+  #trigger:
+    #project: DockerWest/image/php-wordpress
